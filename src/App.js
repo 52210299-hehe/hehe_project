@@ -15,11 +15,14 @@ function App() {
   const navigate = useNavigate();
   const login = (username) => {
     setUser(username);
-    navigate('/');
+    navigate('/'); 
   };
- 
+  const logout = () => {
+    setUser(null);
+    navigate('/login');
+  };
   return (
-    <AuthContext.Provider value={{ user, login }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
     <div className=''>
      {user && <Navbar />}
 
