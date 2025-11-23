@@ -12,11 +12,12 @@ function Manage() {
   const handleChange = (e) => {
     setFlight({ ...flight, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (flight && !flights.some(f => f.number === flight.number)) {
     setFlights([...flights, flight]);
     setFlight(initialFlight);
+    }
   };
 
   const remove = (number) => {
