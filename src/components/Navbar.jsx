@@ -1,19 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../App';
 
-function Navbar() {
+
+function NavBar() {
+  const { user } = useContext(AuthContext);
   return (
-    <div>
-      <nav className="w-full bg-gradient-to-r from-purple-600 via-black to-purple-900 py-4 shadow-md">
+    <nav className="w-full bg-gradient-to-r from-purple-600 via-black to-purple-900 py-4 shadow-md">
       <div className="max-w-4xl mx-auto flex justify-center gap-32">
         <Link to="/" className="text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200">Home</Link>
         <Link to="/about" className="text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200">About</Link>
-        <Link to="/register" className="text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200" >Register</Link>
-        <Link to="/manage" className="text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200">Manage</Link>
+        <Link to="/register" className={`text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200 ${user === 'admin' ? 'hidden' : ''}`}>Register</Link>
+        <Link to="/manage" className={`text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200 ${user === 'user' ? 'hidden' : ''}`}>Manage</Link>
       </div>
     </nav>
-    </div>
-  )
+  );
 }
 
-export default Navbar
+export default NavBar
