@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { flightsctx } from '../App';
-/*
-const randomTravels = [
-  { id: '1', number: 'TRV101', origin: 'Paris', destination: 'Rome', date: '2025-12-01' },
-  { id: '2', number: 'TRV202', origin: 'London', destination: 'Berlin', date: '2025-12-05' },
-  { id: '3', number: 'TRV303', origin: 'Madrid', destination: 'Lisbon', date: '2025-12-10' },
-  { id: '4', number: 'TRV404', origin: 'New York', destination: 'Tokyo', date: '2025-12-15' },
-  { id: '5', number: 'TRV505', origin: 'Sydney', destination: 'Dubai', date: '2025-12-20' },
-];
-*/
+
 function Register() {
   const { flights } = useContext(flightsctx);
   const [selectedNb, setSelectedNb] = useState(flights.length > 0 ? flights[0].number : '');
