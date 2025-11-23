@@ -19,8 +19,8 @@ function Manage() {
     setFlight(initialFlight);
   };
 
-  const remove = (id) => {
-    setFlights(flights.filter((f) => f.id !== id));
+  const remove = (number) => {
+    setFlights(flights.filter((f) => f.number !== number));
   };
 
   return (
@@ -58,7 +58,7 @@ function Manage() {
                 <td className="p-2">
                   <button
                     className="bg-red-600 rounded-lg px-3 py-1 text-white"
-                    onClick={() => remove(flight.id)}
+                    onClick={() => remove(flight.number)}
                   >
                     Remove
                   </button>

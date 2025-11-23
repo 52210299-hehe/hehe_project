@@ -12,7 +12,7 @@ import Footer from './components/Footer.jsx'
 export const AuthContext = createContext();
 export const flightsctx = createContext();
 function App() {
-    const initialFlight = { id: '', number: '', origin: '', destination: '', date: '' };
+    const initialFlight = {number: '', origin: '', destination: '', date: '' };
   const [flights, setFlights] = useState([]);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
