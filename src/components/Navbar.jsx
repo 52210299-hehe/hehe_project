@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../App';
-
+import { UserContext } from './UserContext.js';
 
 function NavBar() {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
   return (
     <nav className="w-full bg-gradient-to-r from-purple-600 via-black to-purple-900 py-4 shadow-md">
       <div className="max-w-4xl mx-auto flex justify-center gap-32">

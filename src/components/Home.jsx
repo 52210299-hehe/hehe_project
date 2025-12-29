@@ -1,12 +1,11 @@
 
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../App';
-
+import { UserContext } from './UserContext.js';
 
 function Home() {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-200 flex flex-col ">
      

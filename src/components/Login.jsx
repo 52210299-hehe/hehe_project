@@ -1,19 +1,36 @@
 
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../App';
+import { useState, useContext } from 'react';
+import { UserContext } from './UserContext.js';
 
-function Login() {
-  const { login } = useContext(AuthContext);
+
+export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const { login } = useContext(UserContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if ((username === 'user' || username === 'admin') && password === username) {
-      login(username);
-    } else {
-      setError('Invalid credentials.'); 
+
+    try {
+      const res = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      let  user = await res.json();
+
+      if (res.ok) {
+        console.log("Login successful:", user.data);
+        login(user.data, user.token); 
+        alert('Logged in!');
+
+      } else {
+        alert(user?.message);
+      }
+    } catch (err) {
+      console.error('Login error', err);
+      alert('Network error: ' + (err.message));
     }
   };
 
@@ -51,11 +68,11 @@ function Login() {
           required
           placeholder="Password (same as username)"
         />
-        {error && <div className="text-red-600 text-center mb-2">{error}</div>}
+       
         <button className="bg-purple-700 text-white font-bold py-3 rounded-lg hover:bg-purple-900 transition-colors w-32 mx-auto" type="submit">Login</button>
       </form>
     </div>
   );
 }
 
-export default Login;
+

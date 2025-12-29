@@ -1,9 +1,8 @@
 
 import React, { useContext } from 'react';
-import { AuthContext } from '../App';
-
+import { UserContext } from './UserContext.js';
 function Footer() {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(UserContext);
   return (
     <footer className="w-full py-6 bg-gradient-to-r from-purple-600 via-black to-purple-900 mt-0">
       <div className="text-center text-white font-medium text-base flex flex-col items-center gap-2">
