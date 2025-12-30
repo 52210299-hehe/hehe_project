@@ -9,8 +9,8 @@ function NavBar() {
       <div className="max-w-4xl mx-auto flex justify-center gap-32">
         <Link to="/" className="text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200">Home</Link>
         <Link to="/about" className="text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200">About</Link>
-        <Link to="/register" className={`text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200 ${user === 'admin' ? 'hidden' : ''}`}>Register</Link>
-        <Link to="/manage" className={`text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200 ${user === 'user' ? 'hidden' : ''}`}>Manage</Link>
+        <Link to="/register" className={`text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200 ${user.role === 1 ? 'hidden' : ''}`}>Register</Link>
+        <Link to="/manage" className={`text-white font-semibold px-3 py-2 rounded-lg hover:bg-purple-400 transition-colors duration-200 ${user.role === 2 ? 'hidden' : ''}`}>Manage</Link>
       </div>
     </nav>
   );

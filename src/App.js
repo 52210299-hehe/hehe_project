@@ -1,14 +1,15 @@
 
 import { useContext } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, } from 'react-router-dom'
 import Navbar from './components/Navbar.jsx'
 import About from './components/About.jsx'
 import Home from './components/Home.jsx'
-// import Manage from './components/Manage.jsx'
+import Manage from './components/Manage.jsx'
 // import Register from './components/Register.jsx'
 import Login from './components/Login.jsx'
 import Footer from './components/Footer.jsx'
 import { UserContext } from './components/UserContext.js';
+import ProtectedRoute from './ProtectedRoute.jsx';
 
 function App() {
    const { user } = useContext(UserContext);
@@ -16,36 +17,45 @@ function App() {
   
 
   return (
-    
-    <div className=''>
-     {user && <Navbar />}
-
+    <>
+      {user && <Navbar />}
       <Routes>
-        {!user && (
-          <>
-            <Route path="*" element={<Navigate to="/login" replace />} />
-             <Route path="/login" element={<Login />} />
-
-          </>
-          )}
-     
-        {user && (
-          <>
-          
-            <Route path="*" element={<Navigate to="/" replace />} />
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
-            {/* <Route path='/manage' element={<Manage />} /> */}
-            {/* <Route path='/register' element={<Register />} /> */}
-          </>
-        )}
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <ProtectedRoute>
+              <About />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/manage"
+          element={
+            <ProtectedRoute>
+              <Manage />
+            </ProtectedRoute>
+          }
+        />
+        {/* <Route
+          path="/register"
+          element={
+            <ProtectedRoute>
+              <Register />
+            </ProtectedRoute>
+          }
+        /> */}
       </Routes>
       <Footer />
-      
-
-    </div>
-  
-  )
+    </>
+  );
 }
-
 export default App

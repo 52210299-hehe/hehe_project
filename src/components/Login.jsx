@@ -1,4 +1,4 @@
-
+import { useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { UserContext } from './UserContext.js';
 
@@ -7,6 +7,7 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { login } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ export default function Login() {
         console.log("Login successful:", user.data);
         login(user.data, user.token); 
         alert('Logged in!');
+        navigate('/', { replace: true });
 
       } else {
         alert(user?.message);
@@ -37,11 +39,11 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-200 flex flex-col items-center justify-center px-4 py-10">
      {/* Welcome / Hero */}
-<div className="flex-1 bg-gradient-to-br from-purple-200 via-purple-100 to-purple-300 rounded-3xl shadow-xl p-10 text-center flex flex-col items-center justify-center gap-6 mb-6 mt-0">
+<div className="flex-1 bg-gradient-to-br from-purple-200 via-purple-100 to-purple-300 rounded-3xl shadow-xl p-20 text-center flex flex-col items-center justify-center gap-6 mb-6 mt-0">
   <h1 className="text-5xl font-extrabold text-purple-900">Welcome to Hehe Travels 2 ✈️</h1>
-  <p className="text-lg text-purple-800 max-w-md">
-    Sign in to continue. Use username <span className="font-semibold">user</span> or <span className="font-semibold">admin</span>
-  </p>
+  <h2 className="text-lg text-purple-800 max-w-md font-semibold">
+    Sign in to continue<span className="font-semibold"></span><span className="font-semibold"></span>
+  </h2>
   <div className="w-48 h-48 rounded-full bg-gradient-to-tr from-purple-500 via-purple-700 to-purple-900 shadow-inner flex items-center justify-center">
     <span className="text-white text-5xl">🌍</span>
   </div>
@@ -57,7 +59,7 @@ export default function Login() {
           onChange={e => setUsername(e.target.value)}
           className="border border-purple-300 rounded-lg p-3 text-lg"
           required
-          placeholder="Username (user or admin)"
+          placeholder="Username "
         />
         <input
           type="password"
@@ -66,7 +68,7 @@ export default function Login() {
           onChange={e => setPassword(e.target.value)}
           className="border border-purple-300 rounded-lg p-3 text-lg"
           required
-          placeholder="Password (same as username)"
+          placeholder="Password "
         />
        
         <button className="bg-purple-700 text-white font-bold py-3 rounded-lg hover:bg-purple-900 transition-colors w-32 mx-auto" type="submit">Login</button>

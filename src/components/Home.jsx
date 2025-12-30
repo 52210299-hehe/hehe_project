@@ -24,7 +24,7 @@ function Home() {
     
           <section className="mx-auto px-8 grid grid-cols-1 gap-6 w-3/5 flex-1 mb-5 mt-3">
         
-        <div className={`rounded-2xl shadow-lg p-6 border-t-4 border-purple-600 cursor-pointer hover:scale-105 transition-transform duration-200 flex flex-col items-center text-center ${user === 'admin' ? 'hidden' : ''}`} onClick={() => navigate('/register') }>
+        <div className={`rounded-2xl shadow-lg p-6 border-t-4 border-purple-600 cursor-pointer hover:scale-105 transition-transform duration-200 flex flex-col items-center text-center ${user.role === 1 ? 'hidden' : ''}`} onClick={() => navigate('/register') }>
           <span className="text-purple-600 text-3xl mb-2">🛫</span>
           <h2 className="text-purple-800 font-bold text-xl mb-2">Register</h2>
           <p className="text-gray-700 text-base">register your next flight in seconds.</p>
@@ -34,7 +34,7 @@ function Home() {
           <h2 className="text-purple-700 font-bold text-xl mb-2">About</h2>
           <p className="text-gray-700 text-base">Learn more about hehe travels 2 and our mission.</p>
         </div>
-        <div className={`rounded-2xl shadow-lg p-6 border-t-4 border-purple-700 cursor-pointer hover:scale-105 transition-transform duration-200 flex flex-col items-center text-center ${user === 'user' ? 'hidden' : ''}`} onClick={() => navigate('/manage') }>
+        <div className={`rounded-2xl shadow-lg p-6 border-t-4 border-purple-700 cursor-pointer hover:scale-105 transition-transform duration-200 flex flex-col items-center text-center ${user.role === 2 ? 'hidden' : ''}`} onClick={() => navigate('/manage') }>
           <span className="text-purple-700 text-3xl mb-2">🗂️</span>
           <h2 className="text-purple-700 font-bold text-xl mb-2">Manage</h2>
           <p className="text-gray-700 text-base">Create, edit, or delete flights easily.</p>
