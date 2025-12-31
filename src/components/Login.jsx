@@ -72,6 +72,7 @@ export default function Login() {
         />
        
         <button className="bg-purple-700 text-white font-bold py-3 rounded-lg hover:bg-purple-900 transition-colors w-32 mx-auto" type="submit">Login</button>
+        <p>new here? <a href="/signup" className="text-purple-700 hover:underline">Sign up</a></p>
       </form>
     </div>
   );

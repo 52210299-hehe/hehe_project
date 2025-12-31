@@ -39,10 +39,20 @@ function Home() {
           <h2 className="text-purple-700 font-bold text-xl mb-2">Manage</h2>
           <p className="text-gray-700 text-base">Create, edit, or delete flights easily.</p>
         </div>
+
+         <div className={`rounded-2xl shadow-lg p-6 border-t-4 border-purple-600 cursor-pointer hover:scale-105 transition-transform duration-200 flex flex-col items-center text-center ${user.role === 1 ? 'hidden' : ''}`} onClick={() => navigate('/bookings') }>
+          <span className="text-purple-600 text-3xl mb-2">🛫</span>
+            <h2 className="text-purple-700 font-bold text-xl mb-2">bookings</h2>
+            <p className="text-gray-700 text-base">check your registered bookings</p>
+          </div>
+        </section>
+        </div>
+
+
         
-      </section>
       
-    </div>
+      
+    
   );
 }
 
