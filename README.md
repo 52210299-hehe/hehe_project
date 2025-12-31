@@ -20,14 +20,33 @@ A modern, role-based flight management application built with React and Tailwind
 - 📋 **Travel Registration**: Users can browse and register for available flights
 - 🔓 **Session Management**: Logout functionality with automatic redirect to login
 - 🎯 **Role-Based Navigation**: Different UI elements and routes based on user role
+# hehe_project
+csci426 project
+
+# hehe travels 2 ✈️
+
+A modern, role-based flight management application built with React and Tailwind CSS. The frontend now connects to a backend API (Node/Express) to persist and retrieve data.
+
+## Project Summary
+
+**hehe travels 2** is a simple flight management platform demonstrating role-based access control, CRUD operations for travel templates, user bookings, and a clean Tailwind UI. The app supports two roles (regular users and admins) and includes authentication handled by the backend API.
+
+## Key Features
+
+- 🔐 Role-Based Authentication (backend-supported)
+- 🎨 Clean UI built with Tailwind CSS and responsive layouts
+- ✈️ Admin CRUD for travels (create, edit, delete)
+- 📋 User booking flow (register, view bookings, pay/cancel)
+- 🧾 Persistent data via backend API endpoints (e.g., `/api/travels`, `/api/bookings`, `/api/login`)
+- 🧩 Context-based state management with a `UserContext` provider
 
 ## Tech Stack
 
-- **Frontend**: React 18
+- **Frontend**: React 18 (Create React App)
 - **Styling**: Tailwind CSS
 - **Routing**: React Router v6
 - **State Management**: React Context API
-- **Build Tool**: Create React App
+- **Backend**: Node.js + Express (API server). The frontend communicates with the backend API under `/api` (default base URL: http://localhost:5000).
 
 ## Setup Instructions
 
@@ -36,117 +55,112 @@ A modern, role-based flight management application built with React and Tailwind
 - Node.js (v14 or higher)
 - npm or yarn
 
+### Frontend
 
-### Login Credentials
+1. Install dependencies:
 
-The application uses hardcoded credentials for demonstration:
+```bash
+npm install
+```
 
-| Role  | Username | Password |
-|-------|----------|----------|
-| User  | `user`   | `user`   |
-| Admin | `admin`  | `admin`  |
+2. Start the frontend dev server:
 
+```bash
+npm start
+```
 
+The frontend runs by default at `http://localhost:3000`.
 
-## Project Structure
+### Backend (recommended)
+
+The frontend expects a backend API at `http://localhost:5000/api` by default. If you have the backend available, start it so the frontend can fetch and persist data (endpoints used include `/api/travels`, `/api/bookings`, `/api/login`, `/api/SignUp`). Typical steps from the backend folder:
+
+```bash
+npm install
+npm start # or `npm run dev` if using nodemon
+```
+
+To change the API base URL for the frontend, create a `.env` file in the project root and set:
+
+```bash
+REACT_APP_API_URL=http://localhost:5000
+```
+
+(Then update fetch/axios calls to use `process.env.REACT_APP_API_URL` if desired.)
+
+## Roles & Credentials (demo)
+
+This demo uses simple/demo credentials for local testing (replace with your backend users in production):
+
+- **User**: `user` / `user`
+- **Admin**: `admin` / `admin`
+
+Note: The app uses role values from the backend (`user.role`) to hide/show UI elements (e.g., `Register`, `Manage`, `Bookings`).
+
+## Project Structure (important files)
 
 ```
 src/
-├── App.js                 # Main app component with routing and context providers
+├── App.js
+├── index.js
+├── App.css
+├── index.css
 ├── components/
-│   ├── Login.jsx          # Login page with welcome section
-│   ├── Navbar.jsx         # Navigation bar (role-based visibility)
-│   ├── Footer.jsx         # Footer with logout button
-│   ├── Home.jsx           # Landing page with feature cards
-│   ├── About.jsx          # About page with app information
-│   ├── Manage.jsx         # Flight management dashboard (admin only)
-│   └── register.jsx       # Flight registration page (user only)
-├── index.css              # Global styles
-├── index.js               # React entry point
-└── App.css                # App-level styles
+│   ├── About.jsx        # About page (role-specific content)
+│   ├── Bookings.jsx     # User bookings list + pay/cancel actions
+│   ├── Footer.jsx       # Footer with logout
+│   ├── Home.jsx         # Landing + role-driven feature cards
+│   ├── Login.jsx        # Login page (calls backend /api/login)
+│   ├── Manage.jsx       # Admin dashboard: add/edit/remove travels
+│   ├── Navbar.jsx       # Role-based navigation links
+│   ├── Register.jsx     # User travel selection / booking UI
+│   ├── SignUp.jsx       # Sign up form (calls backend /api/SignUp)
+│   ├── update.jsx       # Edit travel form (styled similar to Register)
+│   └── UserContext.js   # Provides `user`, `token`, `login()`, `logout()`
 ```
 
-## Features Overview
+## Component Notes
 
-### 1. **Login Page** 
-- Welcome section with app branding and instructions
-- Simple form with username and password fields
-- Error handling for invalid credentials
-- Responsive stacked layout (welcome above form)
+- `UserContext` (`src/components/UserContext.js`): Wrap your app with `UserProvider` so `user` and auth helpers are available. The provider renders `children` (i.e., the nested app/UI) inside the context so they can consume the context values.
 
-### 2. **Navbar**
-- Navigation links that change based on user role
-- "Register" link visible only to regular users
-- "Manage" link visible only to admins
-- Gradient background with hover effects
+- `ProtectedRoute` (used in routing): checks `user` and optionally `allowedRoles`. If a user is unauthenticated it redirects to `/login`; if authenticated but not authorized it redirects to `/`.
 
-### 3. **Home Page**
-- Hero section with app title and airplane graphic
-- Feature cards for quick navigation
-- Dynamic cards: users see "Register" and "About", admins see "Manage" and "About"
-- Responsive grid layout
+- `Login.jsx`: Performs POST `/api/login`, then calls `login(userData, token)` from `UserContext` and navigates to `/` on success.
 
-### 4. **Manage Flights** (Admin Only)
-- Form to add new flights with fields:
-  - Flight Number
-  - Origin
-  - Destination
-  - Date
-- Table displaying all flights with edit/delete actions
-- Real-time updates using React Context
+- `Manage.jsx`: Admin-only CRUD interface for travel templates; uses `/api/travels` endpoints.
 
-### 5. **Register Flights** (User Only)
-- Dropdown selector with pre-filled flight options
-- Add selected flights to personal travel list
-- Table showing registered flights
-- Remove option for each flight
+- `Register.jsx`: Lists travels from `/api/travels`, lets users select one and POST a booking to `/api/bookings`.
 
-### 6. **About Page**
-- Information about the platform
-- Feature highlights with emoji icons
-- Clean, card-based layout
+- `Bookings.jsx`: Fetches bookings for the current user and allows payment (PUT) and cancel (DELETE) via `/api/bookings` endpoints.
 
-### 7. **Footer**
-- Copyright information
-- Logout button (visible when logged in)
-- Consistent gradient styling with navbar
+- `update.jsx`: Styled edit form for a single travel template (fetches travel by id and PUTs updates to `/api/travels/:id`).
 
-## UI Screenshots
-![Login](public/ScreenShots/login_ss.png)
-![user Home](public/ScreenShots/user_home.png)
-![user about](public/ScreenShots/user_about.png)
-![register](public/ScreenShots/register_ss.png)
-![admin Home](public/ScreenShots/admin_home.png)
-![manage](public/ScreenShots/manage_ss.png)
-![Footer](public/ScreenShots/Footer_ss.png)
+## Running the App Locally
 
+1. Start the backend API on port 5000 (or set `REACT_APP_API_URL` to your API URL).
+2. Start the frontend:
 
+```bash
+npm start
+```
 
+3. Open `http://localhost:3000`.
 
+## Troubleshooting
 
+- If the frontend cannot reach the API, verify the backend is running and the base URL in API calls matches your backend address.
+- Check browser console and the network tab for failed requests.
 
+## Future Work
 
+- Switch to environment-based API base URL usage in all API calls
+- Add JWT refresh / secure token handling
+- Add server-side validation and better error messaging
+- Add tests and CI pipeline
 
-## Authentication Flow
+---
 
-1. **Unauthenticated State**: User lands on login page
-2. **Login**: Enter username and password (user or admin)
-3. **Authenticated State**: Navbar appears, routes are available based on role
-4. **Logout**: Click logout button in footer → redirected to login page
-
-## State Management
-
-### AuthContext
-- Manages user authentication state
-- Provides `login()` and `logout()` functions
-- Consumed by: Navbar, Footer, Login, Home
-
-### FlightsContext
-- Manages global flights array
-- Stores flight data for both Manage and Register components
-- Provides `flights` and `setFlights` for shared state
-
-## Responsive Design
+**Enjoy hehe travels 2! ✈️🌍**
 
 - **Mobile**: Single-column layout, stacked components
 - **Tablet**: Adjusted spacing and padding
