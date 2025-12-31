@@ -37,7 +37,7 @@ function SignUp() {
     if (!validate()) return;
     setLoading(true);
     try {
-      await axios.post("http://localhost:5000/api/SignUp", form);
+      await axios.post("https://travel-backend-iw4y.onrender.com/api/SignUp", form);
       setMessage("Account created successfully.");
       setForm({
         Username: "",

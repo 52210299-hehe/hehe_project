@@ -7,7 +7,7 @@ function Bookings() {
   const [bookings, setBookings] = useState([]);
     const fetchBookings = async () => {
         try {
-         const res = await axios.get(`http://localhost:5000/api/bookings/user/${user.id}`);
+         const res = await axios.get(`https://travel-backend-iw4y.onrender.com/api/bookings/user/${user.id}`);
             setBookings(res.data);
             console.log("Fetched bookings:", res.data);
         } catch (error) {
@@ -16,7 +16,7 @@ function Bookings() {
     };
    const handlePayment = async (BookingID) => {
   try {
-    await axios.put(`http://localhost:5000/api/bookings/${BookingID}`);
+    await axios.put(`https://travel-backend-iw4y.onrender.com/api/bookings/${BookingID}`);
     alert("Payment successful!");
     fetchBookings(); 
   } catch (error) {
@@ -26,7 +26,7 @@ function Bookings() {
 };
 const handleCanceling = async (BookingID) => {
   try {
-    await axios.delete(`http://localhost:5000/api/bookings/${BookingID}`);
+    await axios.delete(`https://travel-backend-iw4y.onrender.com/api/bookings/${BookingID}`);
     alert("Booking canceled!");
     fetchBookings(); 
   } catch (error) {

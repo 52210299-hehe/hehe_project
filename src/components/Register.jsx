@@ -9,7 +9,7 @@ function Register() {
 
   const fetchAlltravels = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/travels");
+      const res = await fetch("https://travel-backend-iw4y.onrender.com/api/travels");
       const data = await res.json();
       setTravels(data);
     } catch (error) {
@@ -30,7 +30,7 @@ function Register() {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/bookings", {
+      await axios.post("https://travel-backend-iw4y.onrender.com/api/bookings", {
         TravelID: selectedTravel,
         CustomerID: user.id,
       });

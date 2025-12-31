@@ -16,7 +16,7 @@ function Manage() {
 
   const fetchAlltravels = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/travels");
+      const res = await fetch("https://travel-backend-iw4y.onrender.com/api/travels");
       const data = await res.json();
       setTravels(data);
     } catch (error) {
@@ -35,7 +35,7 @@ function Manage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/travels", NewTravel);
+      await axios.post("https://travel-backend-iw4y.onrender.com/api/travels", NewTravel);
       alert("Travel added!");
       fetchAlltravels();
       setNewTravel({ Destination: "", TravelDate: "", Description: "", Price: "" });
@@ -47,7 +47,7 @@ function Manage() {
 
   const remove = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/travels/${id}`, {
+      const res = await fetch(`https://travel-backend-iw4y.onrender.com/api/travels/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {

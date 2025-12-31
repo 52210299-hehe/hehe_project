@@ -16,7 +16,7 @@ const UpdateTravel = () => {
   // Fetch one travel by ID
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/travels/${id}`)
+      .get(`https://travel-backend-iw4y.onrender.com/api/travels/${id}`)
       .then((res) => {
         const travel = res.data;
         setDestination(travel.Destination);
@@ -31,7 +31,7 @@ const UpdateTravel = () => {
     e.preventDefault();
 
     try {
-      await axios.put(`http://localhost:5000/api/travels/${id}`, {
+      await axios.put(`https://travel-backend-iw4y.onrender.com/api/travels/${id}`, {
         Destination: destination,
         TravelDate: travelDate,
         Description: description,
