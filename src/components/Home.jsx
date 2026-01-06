@@ -8,10 +8,12 @@ function Home() {
   const { user } = useContext(UserContext);
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-200 flex flex-col ">
+      <h1 className="text-2xl font-bold text-purple-700 mb-2">Welcome {user.username}!</h1>
      
         <section className="flex flex-col md:flex-row items-center justify-between px-6 max-w-5xl mx-auto w-full mt-5">
         <div className="flex-1 text-center md:text-left mb-4 md:mb-0">
           <h1 className="text-5xl font-extrabold text-purple-900 mb-2">hehe travels 2</h1>
+          
           <p className="text-xl text-gray-700 mb-3">Book, manage, and explore flights with a modern, easy-to-use platform.</p>
         </div>
         <div className="flex-1 flex justify-center">

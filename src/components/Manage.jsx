@@ -40,8 +40,12 @@ function Manage() {
       fetchAlltravels();
       setNewTravel({ Destination: "", TravelDate: "", Description: "", Price: "" });
     } catch (err) {
+      if(err.message)
       console.error(err);
-      alert("Failed to add travel.");
+    if(err.status === 400)
+      alert("price must be a valid number");
+      else
+      alert("Failed to add travel");
     }
   };
 

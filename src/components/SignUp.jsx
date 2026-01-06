@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SignUp() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     Username: "",
     Password: "",
@@ -11,7 +13,6 @@ function SignUp() {
     RoleID: "2",
   });
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,25 +21,27 @@ function SignUp() {
 
   const validate = () => {
     if (!form.Username.trim() || !form.Password.trim() || !form.Email.trim() || !form.FullName.trim()) {
-      setMessage("Please fill Username, Password, Full name and Email.");
+      alert("Please fill Username, Password, Full name and Email.");
       return false;
     }
    
     if (form.Password.length < 6) {
-      setMessage("Password must be at least 6 characters.");
+      alert("Password must be at least 6 characters.");
       return false;
     }
+   
+    
     return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("");
     if (!validate()) return;
     setLoading(true);
     try {
       await axios.post("https://travel-backend-iw4y.onrender.com/api/SignUp", form);
-      setMessage("Account created successfully.");
+alert("Account created successfully. Please log in.");
+      navigate("/login");
       setForm({
         Username: "",
         Password: "",
@@ -49,10 +52,11 @@ function SignUp() {
       });
     } catch (err) {
       console.error("Signup error:", err);
-      setMessage(err?.response?.data?.message || "Failed to create account.");
+      alert(err.response?.data?.message);
     } finally {
       setLoading(false);
     }
+    
   };
 
   return (
@@ -63,7 +67,7 @@ function SignUp() {
         className="bg-white rounded-xl shadow-lg flex flex-col w-full max-w-xl mx-auto p-6 gap-4 mb-8"
         onSubmit={handleSubmit}
       >
-        {message && <div className="text-center text-sm text-red-600">{message}</div>}
+        { <div className="text-center text-sm text-red-600"></div>}
 
         <input
           name="Username"

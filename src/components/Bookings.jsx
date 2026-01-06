@@ -52,7 +52,7 @@ const handleCanceling = async (BookingID) => {
                         <h2 className="text-2xl font-semibold text-purple-900">
                             Booking ID: {booking.BookingID}
                         </h2>
-                        <p className="text-purple-800">Travel ID: {booking.TravelID}</p>
+                        <p className="text-purple-800">Travel : {booking.Destination}</p>
                         <p className="text-purple-800">Status: {booking.Payment_status}</p>
 
                         <button className="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800 mt-2"
