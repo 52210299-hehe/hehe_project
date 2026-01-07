@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { UserContext } from './UserContext.js';
+import { toast } from 'react-toastify';
 
 
 export default function Login() {
@@ -24,15 +25,15 @@ export default function Login() {
       if (res.ok) {
         console.log("Login successful:", user.data);
         login(user.data, user.token); 
-        alert('Logged in!');
+        toast.success(`welcome ${user.data.username}!`);
         navigate('/', { replace: true });
 
       } else {
-        alert(user?.message);
+        toast.error(user?.message || 'Login failed');
       }
     } catch (err) {
       console.error('Login error', err);
-      alert('Network error: ' + (err.message));
+      toast.error('Network error: ' + (err.message));
     }
   };
 

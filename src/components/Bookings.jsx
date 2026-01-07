@@ -1,6 +1,7 @@
 import { UserContext } from "./UserContext";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 function Bookings() {
   const { user } = useContext(UserContext);
@@ -17,21 +18,21 @@ function Bookings() {
    const handlePayment = async (BookingID) => {
   try {
     await axios.put(`https://travel-backend-iw4y.onrender.com/api/bookings/${BookingID}`);
-    alert("Payment successful!");
+    toast.success("Payment successful!");
     fetchBookings(); 
   } catch (error) {
     console.error("Error processing payment:", error);
-    alert("Failed to process payment.");
+    toast.error("Failed to process payment.");
   }
 };
 const handleCanceling = async (BookingID) => {
   try {
     await axios.delete(`https://travel-backend-iw4y.onrender.com/api/bookings/${BookingID}`);
-    alert("Booking canceled!");
+    toast.success("Booking canceled!");
     fetchBookings(); 
   } catch (error) {
     console.error("Error canceling booking:", error);
-    alert("Failed to cancel booking.");
+    toast.error("Failed to cancel booking.");
   }
 };
 

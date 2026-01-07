@@ -8,7 +8,6 @@ function Home() {
   const { user } = useContext(UserContext);
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-200 flex flex-col ">
-      <h1 className="text-2xl font-bold text-purple-700 mb-2">Welcome {user.username}!</h1>
      
         <section className="flex flex-col md:flex-row items-center justify-between px-6 max-w-5xl mx-auto w-full mt-5">
         <div className="flex-1 text-center md:text-left mb-4 md:mb-0">

@@ -1,4 +1,5 @@
 import React, { useState, } from "react";
+import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -21,12 +22,12 @@ function SignUp() {
 
   const validate = () => {
     if (!form.Username.trim() || !form.Password.trim() || !form.Email.trim() || !form.FullName.trim()) {
-      alert("Please fill Username, Password, Full name and Email.");
+      toast.error("Please fill Username, Password, Full name and Email.");
       return false;
     }
    
     if (form.Password.length < 6) {
-      alert("Password must be at least 6 characters.");
+      toast.error("Password must be at least 6 characters.");
       return false;
     }
    
@@ -40,7 +41,7 @@ function SignUp() {
     setLoading(true);
     try {
       await axios.post("https://travel-backend-iw4y.onrender.com/api/SignUp", form);
-alert("Account created successfully. Please log in.");
+      toast.success("Account created successfully. Please log in.");
       navigate("/login");
       setForm({
         Username: "",
@@ -52,7 +53,7 @@ alert("Account created successfully. Please log in.");
       });
     } catch (err) {
       console.error("Signup error:", err);
-      alert(err.response?.data?.message);
+      toast.error(err.response?.data?.message || 'Signup failed');
     } finally {
       setLoading(false);
     }

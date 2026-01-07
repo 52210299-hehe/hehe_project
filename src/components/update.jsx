@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const UpdateTravel = () => {
   const [destination, setDestination] = useState("");
@@ -26,10 +27,23 @@ const UpdateTravel = () => {
       })
       .catch((err) => console.log(err));
   }, [id]);
+  const validate = () => {
+    if (!destination.trim() || !travelDate.trim() || !description.trim() || !price.toString().trim()) {
+      setError(true);
+      toast.error("All fields are required.");
+      return false;
+    }
+    if(isNaN(price) || Number(price) <= 0){
+      setError(true);
+      toast.error("Price must be a valid positive number");
+      return false;
+    }
+    return true;
+  }
 
   const handleClick = async (e) => {
     e.preventDefault();
-
+if (!validate()) return;
     try {
       await axios.put(`https://travel-backend-iw4y.onrender.com/api/travels/${id}`, {
         Destination: destination,

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { toast } from 'react-toastify';
 import { UserContext } from "./UserContext";
 import axios from "axios";
 
@@ -25,7 +26,7 @@ function Register() {
     e.preventDefault();
 
     if (!selectedTravel) {
-      alert("Please select a travel");
+      toast.error("Please select a travel");
       return;
     }
 
@@ -35,10 +36,10 @@ function Register() {
         CustomerID: user.id,
       });
 
-      alert("Booking created with pending payment!");
+      toast.success("Booking created with pending payment!");
     } catch (err) {
       console.error(err);
-      alert("Failed to create booking");
+      toast.error("Failed to create booking");
     }
   };
 

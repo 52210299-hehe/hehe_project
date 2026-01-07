@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -36,16 +37,16 @@ function Manage() {
     e.preventDefault();
     try {
       await axios.post("https://travel-backend-iw4y.onrender.com/api/travels", NewTravel);
-      alert("Travel added!");
+      toast.success("Travel added!");
       fetchAlltravels();
       setNewTravel({ Destination: "", TravelDate: "", Description: "", Price: "" });
     } catch (err) {
       if(err.message)
       console.error(err);
     if(err.status === 400)
-      alert("price must be a valid number");
+      toast.error("price must be a valid number");
       else
-      alert("Failed to add travel");
+      toast.error("Failed to add travel");
     }
   };
 
@@ -57,6 +58,7 @@ function Manage() {
       if (res.ok) {
         setTravels((prev) => prev.filter((travel) => travel.TravelTemplateID !== id));
         fetchAlltravels();
+        toast.success("Travel removed!");
       }
     } catch (err) {
       console.error("Error removing travel:", err);
