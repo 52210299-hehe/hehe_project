@@ -52,7 +52,8 @@ if (!validate()) return;
         Price: price,
       });
 
-      navigate("/manage"); // or wherever your travels list is
+      navigate("/manage");
+      toast.success("Travel updated successfully!");
     } catch (err) {
       console.log(err);
       setError(true);

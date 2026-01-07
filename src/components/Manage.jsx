@@ -32,9 +32,25 @@ function Manage() {
   const handleChange = (e) => {
     setNewTravel({ ...NewTravel, [e.target.name]: e.target.value });
   };
+  const validate = () => {
+    if (!NewTravel.Destination.trim() || !NewTravel.TravelDate.trim() || !NewTravel.Description.trim() || !NewTravel.Price.toString().trim()) {
+      toast.error("All fields are required.");
+      return false;
+    }
+    if(isNaN(NewTravel.Price) || Number(NewTravel.Price) <= 0){
+      toast.error("Price must be a valid positive number");
+      return false;
+    }
+   if (new Date(NewTravel.TravelDate).getTime() < Date.now()) {
+  toast.error("Travel date must be in the future");
+  return false;
+}
+    return true;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
     try {
       await axios.post("https://travel-backend-iw4y.onrender.com/api/travels", NewTravel);
       toast.success("Travel added!");
